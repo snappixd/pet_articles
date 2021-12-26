@@ -6,7 +6,7 @@ CRUD-приложение:
 3) 
 
 БД:
-1) MongoDB(db: article_db; collection: articles)
+1) MongoDB(db: ***; collection: ***)
 
 GIT: 
 1) Запушити на github репозиторій
