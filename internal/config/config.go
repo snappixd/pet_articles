@@ -5,10 +5,10 @@ import (
 )
 
 const (
-	defaultMongoURI      = "mongodb+srv://admin:admin@cluster0.cweoh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-	defaultMongoUser     = "admin"
-	defaultMongoPassword = "admin"
-	defaultMongoDb       = "myFirstDatabase"
+	defaultMongoURI      = "uri"
+	defaultMongoUser     = "user"
+	defaultMongoPassword = "password"
+	defaultMongoDb       = "dbName"
 
 	defaultHTTPHost      = "127.0.0.1"
 	defaultHTTPPort      = "80"
