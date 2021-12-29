@@ -12,12 +12,12 @@ const timeout = 10 * time.Second
 
 func NewClient(uri, username, password string) (*mongo.Client, error) {
 	opts := options.Client().ApplyURI(uri)
-	if username != "" && password != "" {
-		opts.SetAuth(options.Credential{
-			Username: username,
-			Password: password,
-		})
-	}
+	// if username != "" && password != "" {
+	// 	opts.SetAuth(options.Credential{
+	// 		Username: username,
+	// 		Password: password,
+	// 	})
+	// }
 
 	client, err := mongo.NewClient(opts)
 	if err != nil {
