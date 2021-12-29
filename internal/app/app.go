@@ -8,9 +8,7 @@ import (
 	"articles/internal/service"
 	"articles/pkg/db"
 	"context"
-	"errors"
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -36,9 +34,7 @@ func Run() {
 	srv := server.NewServer(cfg, handlers.Init(cfg))
 
 	go func() {
-		if err := srv.Run(); !errors.Is(err, http.ErrServerClosed) {
-			log.Println("failed to run server")
-		}
+		srv.Run()
 	}()
 
 	log.Println("server successfully started!")
