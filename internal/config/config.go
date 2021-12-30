@@ -2,13 +2,15 @@ package config
 
 import (
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 const (
-	defaultMongoURI      = "uri"
-	defaultMongoUser     = "user"
-	defaultMongoPassword = "password"
-	defaultMongoDb       = "dbName"
+	defaultMongoURI      = "mongodb+srv://admin:admin@cluster0.cweoh.mongodb.net/articlesDb?retryWrites=true&w=majority"
+	defaultMongoUser     = "admin"
+	defaultMongoPassword = "admin"
+	defaultMongoDb       = "articlesDb"
 
 	defaultHTTPHost      = "127.0.0.1"
 	defaultHTTPPort      = "80"
@@ -36,30 +38,73 @@ type (
 	}
 )
 
-func Init() *Config {
+func Init(cfgDir string) (*Config, error) {
+	populateDefaults()
+
+	if err := parseConfigFile(cfgDir); err != nil {
+		return nil, err
+	}
+
 	var cfg Config
 
-	populateDefaults(&cfg)
+	if err := unmarshal(&cfg); err != nil {
+		return nil, err
+	}
 
-	return &cfg
+	return &cfg, nil
 }
 
-func populateDefaults(cfg *Config) {
-	cfg.Mongo.URI = defaultMongoURI
-	cfg.Mongo.User = defaultMongoUser
-	cfg.Mongo.Password = defaultMongoPassword
-	cfg.Mongo.DbName = defaultMongoDb
+func populateDefaults() {
+	viper.SetDefault("http.host", defaultHTTPHost)
+	viper.SetDefault("http.port", defaultHTTPPort)
+	viper.SetDefault("http.readTimeout", defaultHTTPRWTimeout)
+	viper.SetDefault("http.writeTimeout", defaultHTTPRWTimeout)
 
-	cfg.HTTP.Port = defaultHTTPPort
-	cfg.HTTP.Host = defaultHTTPHost
+	viper.SetDefault("mongo.uri", defaultMongoURI)
+	viper.SetDefault("mongo.user", defaultMongoUser)
+	viper.SetDefault("mongo.password", defaultMongoPassword)
+	viper.SetDefault("mongo.dbName", defaultMongoDb)
 }
 
-// func setFromEnv(cfg *Config) {
-// 	cfg.Mongo.URI = os.Getenv("MONGO_URI")
-// 	cfg.Mongo.User = os.Getenv("MONGO_USER")
-// 	cfg.Mongo.Password = os.Getenv("MONGO_PASSWORD")
-// 	cfg.Mongo.DbName = os.Getenv("MONGO_DB")
-//
-// 	cfg.HTTP.Host = os.Getenv("HTTP_HOST")
-// 	cfg.HTTP.Port = os.Getenv("HTTP_PORT")
-// }
+func unmarshal(cfg *Config) error {
+	if err := viper.UnmarshalKey("http.host", &cfg.HTTP.Host); err != nil {
+		return err
+	}
+
+	if err := viper.UnmarshalKey("http.port", &cfg.HTTP.Port); err != nil {
+		return err
+	}
+
+	if err := viper.UnmarshalKey("http.readTimeout", &cfg.HTTP.ReadTimeout); err != nil {
+		return err
+	}
+
+	if err := viper.UnmarshalKey("http.writeTimeout", &cfg.HTTP.WriteTimeout); err != nil {
+		return err
+	}
+
+	if err := viper.UnmarshalKey("mongo.uri", &cfg.Mongo.URI); err != nil {
+		return err
+	}
+
+	if err := viper.UnmarshalKey("mongo.user", &cfg.Mongo.User); err != nil {
+		return err
+	}
+
+	if err := viper.UnmarshalKey("mongo.password", &cfg.Mongo.Password); err != nil {
+		return err
+	}
+
+	return viper.UnmarshalKey("mongo.dbName", &cfg.Mongo.DbName)
+}
+
+func parseConfigFile(folder string) error {
+	viper.AddConfigPath(folder)
+	viper.SetConfigName("main")
+
+	if err := viper.ReadInConfig(); err != nil {
+		return err
+	}
+
+	return viper.MergeInConfig()
+}

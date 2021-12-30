@@ -15,8 +15,13 @@ import (
 	"time"
 )
 
-func Run() {
-	cfg := config.Init()
+// const cfgDir = "/internal/config"
+
+func Run(cfgDir string) {
+	cfg, err := config.Init(cfgDir)
+	if err != nil {
+		log.Println(err)
+	}
 
 	mongoClient, err := db.NewClient(cfg.Mongo.URI, cfg.Mongo.User, cfg.Mongo.Password)
 	if err != nil {
