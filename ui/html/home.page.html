@@ -1,0 +1,25 @@
+{{template "base" .}}
+
+{{define "title"}}Articles{{end}}
+
+{{define "main"}}
+    {{if .articles}}
+     <table>
+        <tr>
+            <th>Title</th>
+            <th>Anons</th>
+            <th>Created</th>
+        </tr>
+        {{range .articles}}
+        <tr>
+            <td>{{.Title}}</td>
+            <td>{{.Anons}}</td>
+            <td>{{.CreatedAt}}</td>
+            <td><a href='/getArticle?id={{.ID}}'>Read Article</a></td>
+        </tr>
+        {{end}}
+    </table>
+    {{else}}
+        <p>Здесь ничего нет... пока что!</p>
+    {{end}}
+{{end}}

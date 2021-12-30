@@ -10,12 +10,12 @@ import (
 )
 
 func (h *Handler) initArticlesRoutes(r *gin.Engine) {
-	articles := r.Group("/articles")
+	articles := r.Group("/")
 	{
 		articles.GET("/", h.getAllArticles)
-		articles.GET("/get/:id", h.getArticleByID)
-		articles.GET("/delete/:id", h.deleteArticle)
-		articles.POST("/create/:id", h.createArticle)
+		articles.GET("/getArticle/:id", h.getArticleByID)
+		articles.GET("/deleteArticle/:id", h.deleteArticle)
+		articles.POST("/createArticle/:id", h.createArticle)
 	}
 }
 
@@ -26,7 +26,9 @@ func (h *Handler) getAllArticles(c *gin.Context) {
 
 	articles := h.services.Articles.GetAllArticles(c)
 
-	c.JSON(200, articles)
+	c.HTML(http.StatusOK, "home.page.html", gin.H{
+		"articles": articles,
+	})
 }
 
 func (h *Handler) getArticleByID(c *gin.Context) {

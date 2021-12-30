@@ -3,7 +3,6 @@ package handler
 import (
 	"articles/internal/config"
 	"articles/internal/service"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,10 +19,7 @@ func NewHandler(services *service.Services) *Handler {
 
 func (h *Handler) Init(cfg *config.Config) *gin.Engine {
 	router := gin.Default()
-
-	router.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong")
-	})
+	router.LoadHTMLGlob("ui/html/*")
 
 	h.initArticlesRoutes(router)
 
