@@ -4,7 +4,6 @@ import (
 	"articles/internal/models"
 	"context"
 	"log"
-	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -23,7 +22,6 @@ func NewArticlesRepo(db *mongo.Database) *ArticlesRepo {
 
 func (r *ArticlesRepo) Create(ctx context.Context, article models.Article) (primitive.ObjectID, error) {
 	article.ID = primitive.NewObjectID()
-	article.CreatedAt = time.Now()
 
 	_, err := r.db.InsertOne(ctx, article)
 
