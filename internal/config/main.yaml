@@ -1,0 +1,11 @@
+http:
+    host: "127.0.0.1"
+    port: 80
+    readTimeout: 10s
+    writeTimeout: 10s
+
+mongo:
+    uri: uri
+    user: user
+    password: password
+    dbName: db
