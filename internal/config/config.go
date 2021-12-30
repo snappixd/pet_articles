@@ -7,10 +7,10 @@ import (
 )
 
 const (
-	defaultMongoURI      = "mongodb+srv://admin:admin@cluster0.cweoh.mongodb.net/articlesDb?retryWrites=true&w=majority"
-	defaultMongoUser     = "admin"
-	defaultMongoPassword = "admin"
-	defaultMongoDb       = "articlesDb"
+	defaultMongoURI      = "uri"
+	defaultMongoUser     = "user"
+	defaultMongoPassword = "password"
+	defaultMongoDb       = "db"
 
 	defaultHTTPHost      = "127.0.0.1"
 	defaultHTTPPort      = "80"
