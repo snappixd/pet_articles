@@ -9,13 +9,14 @@
             <th>Title</th>
             <th>Anons</th>
             <th>Created</th>
+            <th>Author</th>
         </tr>
         {{range .articles}}
         <tr>
             <td>{{.Title}}</td>
             <td>{{.Anons}}</td>
-            <td>{{.CreatedAt}}</td>
             <td><a href='/getArticle?id={{.ID}}'>Read Article</a></td>
+            <td>{{.Author}}</td>  
         </tr>
         {{end}}
     </table>
