@@ -9,5 +9,5 @@ type Article struct {
 	Title       string             `json:"title" bson:"title"`
 	Anons       string             `json:"anons" bson:"anons"`
 	Description string             `json:"description" bson:"description"`
-	Author      *Author            `json:"author" bson:"author"`
+	Author      string             `json:"author" bson:"author"`
 }
