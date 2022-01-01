@@ -2,7 +2,7 @@ package main
 
 import "articles/internal/app"
 
-const cfgDir = "cfgs"
+const cfgDir = "configs"
 
 func main() {
 	app.Run(cfgDir)
