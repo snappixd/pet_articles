@@ -1,0 +1,11 @@
+http:
+    host: "127.0.0.1"
+    port: 80
+    readTimeout: 10s
+    writeTimeout: 10s
+
+mongo:
+    uri: mongodb+srv://admin:admin@cluster0.cweoh.mongodb.net/articlesDb?retryWrites=true&w=majority
+    user: admin
+    password: admin
+    dbName: articlesDb
